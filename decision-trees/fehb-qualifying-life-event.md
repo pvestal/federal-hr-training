@@ -17,7 +17,7 @@
 
 ## Decision Tree
 
-```
+```text
 START: Employee requests FEHB enrollment change outside Open Season
 │
 ├─► Q1: Did a qualifying life event occur?
@@ -138,15 +138,19 @@ START: Employee requests FEHB enrollment change outside Open Season
 ## Special Circumstances
 
 ### Newborn Children
+
 **Special rule**: Addition of a newborn to **Self Only** coverage must be done within **31 days** (not 60 days) for retroactive effective date.
 
 ### Multiple QLEs
+
 If multiple QLEs occur within 60 days, employee has 60 days from the **last** QLE to make changes.
 
 ### Court Orders
+
 Court orders may specify their own timeline. Follow the court order if it requires immediate action.
 
 ### Temporary Continuation of Coverage (TCC)
+
 Separating employees may elect TCC within 60 days of separation. Different rules apply.
 
 ---

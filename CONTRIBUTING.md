@@ -292,7 +292,7 @@ Contact the project maintainer at [patrick.vestal@gmail.com](mailto:patrick.vest
 
 ## 📧 Questions or Help
 
-- **General questions**: Open a [Discussion](https://github.com/pvestal/federal-hr-training/discussions)
+- **General questions**: Create a [GitHub Issue](https://github.com/pvestal/federal-hr-training/issues)
 - **Bug reports**: Create a [Bug Report Issue](https://github.com/pvestal/federal-hr-training/issues/new?template=bug_report.yml)
 - **Content updates**: Create a [Content Update Issue](https://github.com/pvestal/federal-hr-training/issues/new?template=content-update.yml)
 - **Feedback**: Create a [Feedback Issue](https://github.com/pvestal/federal-hr-training/issues/new?template=feedback.yml)

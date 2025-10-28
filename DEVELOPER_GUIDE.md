@@ -1042,7 +1042,7 @@ git checkout feature/your-change
 ### Getting Help
 
 **Development Questions**:
-- Create Discussion on GitHub
+- Create GitHub Issue
 - Email: patrick.vestal@gmail.com
 
 **OPM Content Questions**:
@@ -1068,9 +1068,9 @@ git checkout feature/your-change
 - [OPM Policy Data Oversight](https://www.opm.gov/policy-data-oversight/)
 
 ### Federal HR Community
-- [CHCOC Transmittals](https://www.opm.gov/about-us/our-people-organization/support-functions/human-resources/chcoc/)
+- [OPM CHCOC](https://www.opm.gov/)
 - [IPMA-HR](https://www.ipma-hr.org/)
-- [SHRM Government Affairs](https://www.shrm.org/advocacy/public-policy-resources)
+- [SHRM](https://www.shrm.org/)
 
 ---
 
@@ -1079,7 +1079,7 @@ git checkout feature/your-change
 Thank you for contributing to federal HR training! Your expertise helps HR professionals serve federal employees better.
 
 **Questions?**
-- GitHub Discussions: https://github.com/pvestal/federal-hr-training/discussions
+- GitHub Issues: https://github.com/pvestal/federal-hr-training/issues
 - Email: patrick.vestal@gmail.com
 
 ---

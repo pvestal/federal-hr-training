@@ -421,7 +421,7 @@ Rewrite these HR statements in plain language:
 ### Official References
 - [5 U.S.C. § 2301 - Merit Systems Principles](https://www.govinfo.gov/content/pkg/USCODE-2011-title5/html/USCODE-2011-title5-partIII-subpartA-chap23-sec2301.htm)
 - [5 U.S.C. § 2302 - Prohibited Personnel Practices](https://www.govinfo.gov/content/pkg/USCODE-2011-title5/html/USCODE-2011-title5-partIII-subpartA-chap23-sec2302.htm)
-- [OPM Merit Systems Principles Fact Sheet](https://www.opm.gov/policy-data-oversight/merit-system-accountability-and-compliance/merit-system-principles/)
+- [OPM Merit Systems Principles](https://www.opm.gov/policy-data-oversight/)
 - [Privacy Act of 1974](https://www.justice.gov/opcl/privacy-act-1974)
 - [Hatch Act Guidance (OSC)](https://osc.gov/Services/Pages/HatchAct.aspx)
 - [PlainLanguage.gov](https://www.plainlanguage.gov/)
