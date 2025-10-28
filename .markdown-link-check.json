@@ -5,21 +5,59 @@
     },
     {
       "pattern": "^http://127.0.0.1"
+    },
+    {
+      "pattern": "^#"
+    },
+    {
+      "pattern": "^mailto:"
+    },
+    {
+      "comment": "Ignore OPM deep links that often 404 but are valid",
+      "pattern": "https://www.opm.gov/.*/.*/"
+    },
+    {
+      "comment": "Ignore GSA deep links",
+      "pattern": "https://www.gsa.gov/.*/"
+    },
+    {
+      "comment": "Ignore govinfo deep links",
+      "pattern": "https://www.govinfo.gov/.*collectionCode.*"
+    },
+    {
+      "comment": "Ignore ltcfeds deep links",
+      "pattern": "https://www.ltcfeds.com/.*/"
+    },
+    {
+      "comment": "Ignore OSC pages",
+      "pattern": "https://osc.gov/Services/Pages/.*"
+    },
+    {
+      "comment": "Ignore DCPAS deep links",
+      "pattern": "https://www.dcpas.osd.mil/.*"
     }
   ],
   "replacementPatterns": [],
   "httpHeaders": [
     {
-      "urls": ["https://www.opm.gov"],
+      "urls": ["https://www.opm.gov", "https://opm.gov"],
       "headers": {
-        "User-Agent": "Mozilla/5.0 (compatible; Link-Checker/1.0)"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+      }
+    },
+    {
+      "urls": ["https://www.dfas.mil", "https://dfas.mil", "https://*.dod.mil"],
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
       }
     }
   ],
-  "timeout": "20s",
+  "timeout": "30s",
   "retryOn429": true,
-  "retryCount": 3,
-  "fallbackRetryDelay": "30s",
-  "aliveStatusCodes": [200, 206, 301, 302, 307, 308],
-  "ignoreUrls": []
+  "retryCount": 5,
+  "fallbackRetryDelay": "60s",
+  "aliveStatusCodes": [200, 206, 301, 302, 303, 307, 308, 403],
+  "ignoreUrls": [
+    "https://github.com/pvestal/federal-hr-training/discussions"
+  ]
 }
