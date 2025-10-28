@@ -1,0 +1,124 @@
+name: Deploy Training Site to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Build site
+        run: |
+          mkdir -p _site
+
+          # Copy all markdown files
+          cp -r 01-basic-hr _site/
+          cp -r 02-intermediate-hr _site/
+          cp -r 03-advanced-hr _site/
+          cp -r 04-expert-hr _site/
+          cp -r case-studies _site/
+          cp -r decision-trees _site/
+          cp -r reference-materials _site/
+          cp -r opm-updates _site/
+          cp README.md _site/index.md
+          cp USER_GUIDE.md _site/
+          cp DEVELOPER_GUIDE.md _site/
+          cp CURRICULUM_GUIDE.md _site/
+
+          # Create _config.yml for Jekyll
+          cat > _site/_config.yml << 'EOF'
+          title: Federal HR Training
+          description: Comprehensive training for federal HR specialists
+          theme: jekyll-theme-cayman
+          plugins:
+            - jekyll-seo-tag
+            - jekyll-sitemap
+
+          markdown: kramdown
+          kramdown:
+            input: GFM
+            syntax_highlighter: rouge
+
+          collections:
+            modules:
+              output: true
+              permalink: /:collection/:path/
+            case_studies:
+              output: true
+              permalink: /:collection/:path/
+
+          defaults:
+            - scope:
+                path: ""
+              values:
+                layout: default
+          EOF
+
+          # Create navigation layout
+          mkdir -p _site/_layouts
+          cat > _site/_layouts/default.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en-US">
+            <head>
+              <meta charset="UTF-8">
+              <title>{{ page.title | default: site.title }}</title>
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+            </head>
+            <body>
+              <header>
+                <div class="container">
+                  <h1>{{ site.title }}</h1>
+                  <h2>{{ site.description }}</h2>
+
+                  <nav>
+                    <a href="{{ site.baseurl }}/">Home</a> |
+                    <a href="{{ site.baseurl }}/USER_GUIDE.html">User Guide</a> |
+                    <a href="{{ site.baseurl }}/CURRICULUM_GUIDE.html">Curriculum</a> |
+                    <a href="{{ site.baseurl }}/reference-materials/5cfr-quick-reference.html">5 CFR Reference</a> |
+                    <a href="https://github.com/pvestal/federal-hr-training">GitHub</a>
+                  </nav>
+                </div>
+              </header>
+
+              <main class="container">
+                {{ content }}
+              </main>
+
+              <footer>
+                <p>Public Domain - U.S. Federal Government Training Material</p>
+              </footer>
+            </body>
+          </html>
+          EOF
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
