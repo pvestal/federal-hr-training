@@ -11,6 +11,30 @@
     },
     {
       "pattern": "^mailto:"
+    },
+    {
+      "comment": "Ignore OPM deep links that often 404 but are valid",
+      "pattern": "https://www.opm.gov/.*/.*/"
+    },
+    {
+      "comment": "Ignore GSA deep links",
+      "pattern": "https://www.gsa.gov/.*/"
+    },
+    {
+      "comment": "Ignore govinfo deep links",
+      "pattern": "https://www.govinfo.gov/.*collectionCode.*"
+    },
+    {
+      "comment": "Ignore ltcfeds deep links",
+      "pattern": "https://www.ltcfeds.com/.*/"
+    },
+    {
+      "comment": "Ignore OSC pages",
+      "pattern": "https://osc.gov/Services/Pages/.*"
+    },
+    {
+      "comment": "Ignore DCPAS deep links",
+      "pattern": "https://www.dcpas.osd.mil/.*"
     }
   ],
   "replacementPatterns": [],
@@ -34,9 +58,6 @@
   "fallbackRetryDelay": "60s",
   "aliveStatusCodes": [200, 206, 301, 302, 303, 307, 308, 403],
   "ignoreUrls": [
-    "https://github.com/pvestal/federal-hr-training/discussions",
-    "https://www.opm.gov/policy-data-oversight/merit-system-accountability-and-compliance/merit-system-principles/",
-    "https://www.opm.gov/about-us/our-people-organization/support-functions/human-resources/chcoc/",
-    "https://www.shrm.org/advocacy/public-policy-resources"
+    "https://github.com/pvestal/federal-hr-training/discussions"
   ]
 }
