@@ -286,7 +286,7 @@ federal-hr-training/
 - Other conduct inappropriate for a professional setting
 
 ### Reporting Issues
-Contact the project maintainer at [patrick.vestal@outlook.com](mailto:patrick.vestal@outlook.com) to report conduct concerns.
+Contact the project maintainer at [patrick.vestal@gmail.com](mailto:patrick.vestal@gmail.com) to report conduct concerns.
 
 ---
 
@@ -296,7 +296,7 @@ Contact the project maintainer at [patrick.vestal@outlook.com](mailto:patrick.ve
 - **Bug reports**: Create a [Bug Report Issue](https://github.com/pvestal/federal-hr-training/issues/new?template=bug_report.yml)
 - **Content updates**: Create a [Content Update Issue](https://github.com/pvestal/federal-hr-training/issues/new?template=content-update.yml)
 - **Feedback**: Create a [Feedback Issue](https://github.com/pvestal/federal-hr-training/issues/new?template=feedback.yml)
-- **Direct contact**: patrick.vestal@outlook.com
+- **Direct contact**: patrick.vestal@gmail.com
 
 ---
 

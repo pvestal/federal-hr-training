@@ -89,5 +89,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 **Repository**: https://github.com/pvestal/federal-hr-training
-**Maintainer**: Patrick Vestal (patrick.vestal@outlook.com)
+**Maintainer**: Patrick Vestal (patrick.vestal@gmail.com)
 **License**: Public Domain
