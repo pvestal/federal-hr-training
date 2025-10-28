@@ -1,0 +1,96 @@
+name: 🐛 Bug Report
+description: Report errors, broken links, or issues with training materials
+title: "[BUG]: "
+labels: ["bug", "needs-triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue! Please provide as much detail as possible.
+
+  - type: dropdown
+    id: bug_type
+    attributes:
+      label: Type of Issue
+      description: What kind of problem are you reporting?
+      options:
+        - Broken link
+        - Incorrect information
+        - Typo/Grammar error
+        - Missing content
+        - Formatting issue
+        - Assessment error
+        - Resource not accessible
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Location of Issue
+      description: Where in the training did you find this issue?
+      placeholder: "e.g., Level 1, Module 1.3, Page 5"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of Issue
+      description: Describe the problem you encountered
+      placeholder: |
+        Example:
+        The link to the OPM retirement calculator (Module 1.4, page 7) returns a 404 error.
+        URL: https://www.opm.gov/retirement-calculator
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior/Content
+      description: What should the correct information or behavior be?
+      placeholder: "The link should direct to the working OPM retirement estimator tool."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested_fix
+    attributes:
+      label: Suggested Fix (Optional)
+      description: If you know the correct information or solution, please share it
+      placeholder: "The correct URL is: https://www.opm.gov/retirement-services/fers-information/computation/"
+    validations:
+      required: false
+
+  - type: input
+    id: source
+    attributes:
+      label: Source/Reference for Correction
+      description: If suggesting a correction, provide an official source
+      placeholder: "https://www.opm.gov/..."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How significant is this issue?
+      options:
+        - Low - Minor typo or formatting
+        - Medium - Affects usability but workaround exists
+        - High - Provides incorrect information
+        - Critical - Blocks training completion
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other relevant information
+    validations:
+      required: false

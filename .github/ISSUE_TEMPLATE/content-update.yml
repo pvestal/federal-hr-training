@@ -1,0 +1,121 @@
+name: 📝 Content Update Request
+description: Suggest updates to training materials based on new regulations or policies
+title: "[CONTENT UPDATE]: "
+labels: ["content-update", "needs-review"]
+assignees:
+  - pvestal
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping keep our training materials current! Please provide details about the content update needed.
+
+  - type: dropdown
+    id: training_level
+    attributes:
+      label: Training Level Affected
+      description: Which level of training needs updating?
+      options:
+        - Level 1 - Basic HR
+        - Level 2 - Intermediate HR
+        - Level 3 - Advanced HR
+        - Level 4 - Expert HR
+        - Multiple Levels
+        - All Levels
+    validations:
+      required: true
+
+  - type: input
+    id: module_number
+    attributes:
+      label: Module Number
+      description: Which specific module(s) need updating? (e.g., 1.3, 2.5)
+      placeholder: "1.3"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: update_type
+    attributes:
+      label: Type of Update
+      description: What kind of update is needed?
+      options:
+        - OPM Policy Change
+        - 5 CFR Regulation Amendment
+        - FEHB Update
+        - FERS Update
+        - New Hiring Authority
+        - Agency Guidance
+        - Best Practice Update
+        - Correction/Error Fix
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: update_details
+    attributes:
+      label: Update Details
+      description: Describe the update needed. Include references to OPM guidance, Federal Register citations, or other official sources.
+      placeholder: |
+        Example:
+        OPM issued BAL 25-105 on October 15, 2025, changing FEHB open season dates.
+        Module 1.3 currently states open season is Nov 10 - Dec 8, but it should be updated to Nov 13 - Dec 11.
+
+        Reference: https://www.opm.gov/healthcare-insurance/healthcare/reference-materials/
+    validations:
+      required: true
+
+  - type: input
+    id: source_url
+    attributes:
+      label: Official Source URL
+      description: Provide link to OPM, Federal Register, or other official source
+      placeholder: "https://www.opm.gov/..."
+    validations:
+      required: false
+
+  - type: input
+    id: effective_date
+    attributes:
+      label: Effective Date
+      description: When does this change take effect?
+      placeholder: "2025-11-13"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency Level
+      description: How urgent is this update?
+      options:
+        - Low - Can wait for next scheduled update
+        - Medium - Should be updated within 30 days
+        - High - Needs immediate update (impacts current training)
+        - Critical - Training currently provides incorrect information
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested_text
+    attributes:
+      label: Suggested Updated Text (Optional)
+      description: If you have specific wording suggestions, provide them here
+      placeholder: "Suggested revised text for the module..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Contributor Agreement
+      description: By submitting this update, you agree that
+      options:
+        - label: This information is accurate and based on official sources
+          required: true
+        - label: This content is suitable for public domain/government use
+          required: true
+        - label: I am willing to help review the updated content if needed
+          required: false

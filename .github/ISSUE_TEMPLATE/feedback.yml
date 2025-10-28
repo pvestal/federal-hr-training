@@ -1,0 +1,128 @@
+name: 💡 Training Feedback
+description: Provide feedback on training modules, suggest improvements, or report issues
+title: "[FEEDBACK]: "
+labels: ["feedback", "enhancement"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to provide feedback! Your input helps us improve the training program.
+
+  - type: dropdown
+    id: feedback_category
+    attributes:
+      label: Feedback Category
+      description: What aspect of the training is this feedback about?
+      options:
+        - Content Accuracy
+        - Content Clarity
+        - Learning Activities
+        - Assessments
+        - Resources/References
+        - Navigation/Structure
+        - Accessibility
+        - Real-World Applicability
+        - General Suggestion
+    validations:
+      required: true
+
+  - type: dropdown
+    id: training_level
+    attributes:
+      label: Training Level
+      description: Which level does this feedback apply to?
+      options:
+        - Level 1 - Basic HR
+        - Level 2 - Intermediate HR
+        - Level 3 - Advanced HR
+        - Level 4 - Expert HR
+        - Overall Program
+    validations:
+      required: true
+
+  - type: input
+    id: module_reference
+    attributes:
+      label: Module Reference (if applicable)
+      description: Which module(s) does this feedback relate to?
+      placeholder: "e.g., Module 1.3: FEHB Basics"
+    validations:
+      required: false
+
+  - type: textarea
+    id: feedback_details
+    attributes:
+      label: Detailed Feedback
+      description: Please provide your detailed feedback, observations, or suggestions
+      placeholder: |
+        Example:
+        Module 1.3 covers FEHB basics well, but I found the section on qualifying life events confusing.
+        It would be helpful to have a decision tree or flowchart showing which events qualify and which don't.
+        The case studies were excellent and very realistic.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: your_role
+    attributes:
+      label: Your Role/Experience
+      description: This helps us understand the perspective of the feedback
+      options:
+        - New HR Specialist (< 1 year)
+        - HR Specialist (1-3 years)
+        - Senior HR Specialist (3-5 years)
+        - HR Supervisor/Manager (5+ years)
+        - HR Director/Policy Advisor
+        - Trainer/Instructor
+        - Other
+    validations:
+      required: false
+
+  - type: dropdown
+    id: completion_status
+    attributes:
+      label: Training Completion Status
+      description: Have you completed the module/level you're providing feedback on?
+      options:
+        - Yes, completed
+        - Currently in progress
+        - Reviewed but not formally completed
+        - Not started yet
+    validations:
+      required: false
+
+  - type: textarea
+    id: suggestions
+    attributes:
+      label: Specific Suggestions for Improvement
+      description: What specific changes or additions would improve this training?
+      placeholder: |
+        Suggestions:
+        1. Add a glossary of acronyms at the end of each module
+        2. Include more interactive exercises
+        3. Provide printable quick-reference guides
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: helpful_aspects
+    attributes:
+      label: What aspects of the training were most helpful? (check all that apply)
+      options:
+        - label: Content explanations
+        - label: Case studies
+        - label: Practice exercises
+        - label: Assessments
+        - label: Resource links
+        - label: Real-world examples
+        - label: Decision trees
+        - label: Module structure
+
+  - type: textarea
+    id: additional_comments
+    attributes:
+      label: Additional Comments
+      description: Any other thoughts or suggestions?
+    validations:
+      required: false

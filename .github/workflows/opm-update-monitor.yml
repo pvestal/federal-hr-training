@@ -1,0 +1,95 @@
+name: OPM Update Monitor
+
+on:
+  schedule:
+    # Check daily at 9 AM UTC (4 AM EST)
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-opm-updates:
+    name: Monitor OPM.gov for Updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 feedparser pyyaml
+
+      - name: Check Federal Register for HR updates
+        run: |
+          python scripts/monitor_federal_register.py
+
+      - name: Check OPM Benefits Officers Center
+        run: |
+          python scripts/monitor_opm_benefits.py
+
+      - name: Check OPM Policy Data Oversight
+        run: |
+          python scripts/monitor_opm_policy.py
+
+      - name: Generate update report
+        id: update_report
+        run: |
+          python scripts/generate_opm_update_report.py > opm_updates.md
+          echo "has_updates=$(cat opm_updates.md | wc -l)" >> $GITHUB_OUTPUT
+
+      - name: Create issue for updates
+        if: steps.update_report.outputs.has_updates > 10
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: 'OPM Update Detected - Curriculum Review Required'
+          content-filepath: ./opm_updates.md
+          labels: |
+            opm-update
+            needs-review
+            documentation
+
+      - name: Commit update log
+        if: steps.update_report.outputs.has_updates > 10
+        run: |
+          git config user.name "OPM Monitor Bot"
+          git config user.email "bot@federal-hr-training.gov"
+          mkdir -p opm-updates/$(date +%Y)
+          mv opm_updates.md opm-updates/$(date +%Y)/update-$(date +%Y-%m-%d).md
+          git add opm-updates/
+          git commit -m "docs: OPM update detected on $(date +%Y-%m-%d)"
+          git push
+
+  check-cfr-changes:
+    name: Monitor 5 CFR Changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Check eCFR for Title 5 updates
+        run: |
+          python scripts/monitor_5cfr.py
+
+      - name: Create issue if CFR changed
+        if: success()
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: '5 CFR Regulation Update - Training Material Review Required'
+          content-filepath: ./cfr_updates.md
+          labels: |
+            cfr-update
+            needs-review
+            compliance
