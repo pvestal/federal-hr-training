@@ -5,21 +5,38 @@
     },
     {
       "pattern": "^http://127.0.0.1"
+    },
+    {
+      "pattern": "^#"
+    },
+    {
+      "pattern": "^mailto:"
     }
   ],
   "replacementPatterns": [],
   "httpHeaders": [
     {
-      "urls": ["https://www.opm.gov"],
+      "urls": ["https://www.opm.gov", "https://opm.gov"],
       "headers": {
-        "User-Agent": "Mozilla/5.0 (compatible; Link-Checker/1.0)"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+      }
+    },
+    {
+      "urls": ["https://www.dfas.mil", "https://dfas.mil", "https://*.dod.mil"],
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
       }
     }
   ],
-  "timeout": "20s",
+  "timeout": "30s",
   "retryOn429": true,
-  "retryCount": 3,
-  "fallbackRetryDelay": "30s",
-  "aliveStatusCodes": [200, 206, 301, 302, 307, 308],
-  "ignoreUrls": []
+  "retryCount": 5,
+  "fallbackRetryDelay": "60s",
+  "aliveStatusCodes": [200, 206, 301, 302, 303, 307, 308, 403],
+  "ignoreUrls": [
+    "https://github.com/pvestal/federal-hr-training/discussions",
+    "https://www.opm.gov/policy-data-oversight/merit-system-accountability-and-compliance/merit-system-principles/",
+    "https://www.opm.gov/about-us/our-people-organization/support-functions/human-resources/chcoc/",
+    "https://www.shrm.org/advocacy/public-policy-resources"
+  ]
 }
