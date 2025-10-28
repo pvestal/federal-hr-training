@@ -208,10 +208,17 @@ Completion of each level provides:
 
 ## 📞 Getting Started
 
-1. **Clone this repository**: `git clone https://github.com/pvestal/federal-hr-training.git`
-2. **Review curriculum**: Start with `CURRICULUM_GUIDE.md`
-3. **Complete self-assessment**: Use `assessments/self-assessment.md`
-4. **Begin training**: Navigate to your level folder (e.g., `01-basic-hr/`)
+### For Learners (HR Specialists, Benefits Officers)
+1. **Read**: [`USER_GUIDE.md`](USER_GUIDE.md) - Complete guide for using this training
+2. **Review curriculum**: [`CURRICULUM_GUIDE.md`](CURRICULUM_GUIDE.md) - Detailed module descriptions
+3. **Assess your level**: Determine starting point (Basic/Intermediate/Advanced/Expert)
+4. **Begin training**: Navigate to your level folder (e.g., `01-basic-hr/modules/`)
+
+### For Contributors (Content Developers, Technical Contributors)
+1. **Read**: [`DEVELOPER_GUIDE.md`](DEVELOPER_GUIDE.md) - Complete development guide
+2. **Review**: [`CONTRIBUTING.md`](CONTRIBUTING.md) - Contribution process and standards
+3. **Fork repository**: Click "Fork" button on GitHub
+4. **Start developing**: Create branch, make changes, submit PR
 
 ---
 
