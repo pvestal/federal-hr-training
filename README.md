@@ -211,8 +211,10 @@ Completion of each level provides:
 ### For Learners (HR Specialists, Benefits Officers)
 1. **Read**: [`USER_GUIDE.md`](USER_GUIDE.md) - Complete guide for using this training
 2. **Review curriculum**: [`CURRICULUM_GUIDE.md`](CURRICULUM_GUIDE.md) - Detailed module descriptions
-3. **Assess your level**: Determine starting point (Basic/Intermediate/Advanced/Expert)
-4. **Begin training**: Navigate to your level folder (e.g., `01-basic-hr/modules/`)
+3. **Search topics**: `python scripts/search_training.py <keyword>` (e.g., "FEHB", "RIF")
+4. **Browse resources**: [`reference-materials/federal-resources-quick-reference.md`](reference-materials/federal-resources-quick-reference.md) - DFAS, JFTR, FTR, OPM links
+5. **Assess your level**: Determine starting point (Basic/Intermediate/Advanced/Expert)
+6. **Begin training**: Navigate to your level folder (e.g., `01-basic-hr/modules/`)
 
 ### For Contributors (Content Developers, Technical Contributors)
 1. **Read**: [`DEVELOPER_GUIDE.md`](DEVELOPER_GUIDE.md) - Complete development guide
