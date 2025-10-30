@@ -10,6 +10,7 @@
 ## Learning Objectives
 
 After completing this case study, you will be able to:
+
 1. Identify qualifying life events (QLEs) for FEHB enrollment changes
 2. Calculate appropriate deadlines for QLE requests
 3. Determine required documentation
@@ -48,12 +49,14 @@ You are an HR Specialist at the Naval Support Activity (NSA) Mid-South in Millin
 > 4. I want to add my husband to my FEHB plan now, but I also want to know what happens when the baby is born
 >
 > Questions:
+>
 > - Can I add my husband to my plan?
 > - How long do I have to do this?
 > - What forms do I need?
 > - What about when the baby is born?
 > - Will my premiums go up?
 > - Do I have enough time or did I miss the deadline?
+>
 >
 > Please help! I'm stressed about all of this.
 >
@@ -82,6 +85,7 @@ As the HR Specialist, you need to:
 **Question 1**: How many qualifying life events (QLEs) are present in this scenario?
 
 **Question 2**: For each QLE, identify:
+
 - The specific event
 - The event date
 - The applicable 5 CFR regulation
@@ -90,11 +94,13 @@ As the HR Specialist, you need to:
 ### Part 2: Deadline Calculations
 
 **Question 3**: For Jennifer's marriage (September 30, 2025):
+
 - What is the deadline to submit the SF-2809?
 - Has the deadline passed as of October 25, 2025?
 - Show your calculation
 
 **Question 4**: For the husband's loss of coverage (November 15, 2025):
+
 - What is the deadline to submit the SF-2809?
 - Is this a qualifying life event?
 - Can Jennifer use this QLE if she missed the marriage deadline?
@@ -108,11 +114,13 @@ As the HR Specialist, you need to:
 ### Part 4: Coverage and Premium Changes
 
 **Question 7**: If Jennifer changes from Self Only to Self and Family:
+
 - What will her new coverage type be?
 - When will the change become effective?
 - Will her premiums increase? (Estimate based on typical premium structures)
 
 **Question 8**: When the baby is born in May 2026:
+
 - What must Jennifer do?
 - What is the deadline?
 - Is there anything special about adding a newborn vs. other family members?
@@ -146,12 +154,14 @@ In this scenario, there are **THREE** qualifying life events:
 ### Step 2: Calculate Deadlines
 
 **For Marriage QLE**:
+
 - Event date: September 30, 2025
 - Deadline: 60 days from event = **November 29, 2025**
 - Today's date: October 25, 2025
 - Time remaining: **35 days** ✅ STILL WITHIN DEADLINE
 
 **For Spouse's Loss of Coverage**:
+
 - Event date: November 15, 2025
 - Deadline: 60 days from event = **January 14, 2026**
 - Can be used as backup if needed
@@ -159,6 +169,7 @@ In this scenario, there are **THREE** qualifying life events:
 ### Step 3: Required Documentation
 
 Jennifer must provide:
+
 1. **SF-2809** (Health Benefits Election Form) - signed and dated
 2. **Marriage certificate** (copy acceptable)
 3. **Letter from husband's employer** confirming coverage termination date (helpful but not always required for marriage QLE)
@@ -167,11 +178,13 @@ Jennifer must provide:
 ### Step 4: Premium Impact
 
 Current (Self Only BCBS Standard):
+
 - Employee pays: $156.28/biweekly
 - Government pays: $372.67/biweekly
 - Total: $528.95/biweekly
 
 Estimated New (Self and Family BCBS Standard):
+
 - Employee pays: ~$345-$365/biweekly (estimate)
 - Government pays: ~$760-$800/biweekly (estimate)
 - Total: ~$1,105-$1,165/biweekly
@@ -211,23 +224,27 @@ Estimated New (Self and Family BCBS Standard):
 > Good news - you still have time to add your husband to your health insurance. Here's what you need to know:
 >
 > **Your Qualifying Life Events:**
+>
 > 1. Marriage (September 30) - ✅ You have until November 29 to submit paperwork
 > 2. Your husband losing his coverage (November 15) - ✅ Backup option if needed
 > 3. Baby's birth (May 2026) - ✅ You'll have 31 days to add the baby
 >
 > **What You Need To Do NOW (by November 29):**
+>
 > 1. Complete attached SF-2809 form
 > 2. Provide a copy of your marriage certificate
 > 3. Provide your husband's Social Security Number
 > 4. Submit to HR office
 >
 > **What Will Change:**
+>
 > - Coverage: Self Only → Self and Family
 > - Your cost: $156/biweekly → approximately $350/biweekly
 > - Effective: First day of pay period after we process (likely first week of November)
 > - New insurance card: Arrives in 2-4 weeks
 >
 > **When Baby Is Born (May 2026):**
+>
 > - You'll already have Self and Family coverage, so baby is automatically covered
 > - You have 31 days (not 60!) to submit birth certificate and add baby's name
 > - Coverage is retroactive to birth date
@@ -246,17 +263,21 @@ Estimated New (Self and Family BCBS Standard):
 ## Common Mistakes to Avoid
 
 ❌ **Mistake 1**: Telling employee they missed the deadline
+
 - Marriage was September 30, today is October 25 = 25 days (within 60-day window)
 
 ❌ **Mistake 2**: Confusing the 31-day newborn rule with general 60-day rule
+
 - Adding newborn to SELF ONLY = 31 days
 - Employee already has Self and Family = Baby automatically covered
 
 ❌ **Mistake 3**: Not explaining the two QLE options
+
 - Marriage QLE (primary)
 - Spouse's loss of coverage (backup if needed)
 
 ❌ **Mistake 4**: Failing to set expectations on effective date
+
 - Change effective first day of pay period following request
 - Not immediate
 - New card takes 2-4 weeks

@@ -119,7 +119,7 @@ Active duty military → JFTR applies (travel)
   4. Privately owned vehicle (POV) - requires justification
 
 **§ 301-10.8**: Mileage reimbursement for POV
-- **FY 2025 Rate**: $0.67/mile (Federal mileage rate)
+- **CY 2025 Rate**: $0.70/mile (effective January 1, 2025 per FTR Bulletin 25-04)
 - Cannot exceed cost of common carrier airfare
 - Includes gas, maintenance, wear-and-tear (no separate reimbursement)
 
@@ -474,7 +474,7 @@ Active duty military → JFTR applies (travel)
 5. **Miscellaneous Expense Allowance**: 2 weeks' basic pay (married with family)
    - GS-12 Step 5 = ~$2,800 biweekly × 2 = $5,600
 6. **Mileage**: POV from Texas to Virginia
-   - ~1,500 miles × $0.67/mile = $1,005
+   - ~1,500 miles × $0.70/mile = $1,050
 7. **En Route Travel**: Lodging + M&IE for drive (family of 4)
 
 **Total Estimated Relocation Package**: $60,000 - $80,000 (taxable to employee)
@@ -616,7 +616,7 @@ Active duty military → JFTR applies (travel)
 | **TQSE/TLE** | Up to 60 days | Up to 10 days (CONUS), 15 days (OCONUS) | Up to 60 days (same as FTR) |
 | **House Hunting** | 10 days (employee + spouse) | Not authorized | 10 days (same as FTR) |
 | **Residence Expenses** | Up to $40K | Not authorized | Up to $40K (same as FTR) |
-| **Mileage Rate** | $0.67/mile (FY2025) | $0.67/mile (FY2025) | $0.67/mile (FY2025) |
+| **Mileage Rate** | $0.70/mile (CY2025) | $0.70/mile (CY2025) | $0.70/mile (CY2025) |
 | **OCONUS Allowances** | Not applicable | BAH, BAS (military housing/food) | LQA, Post Allowance |
 | **Recruitment Incentive** | Up to 25% (5 CFR) | Not applicable | Up to 25% (FMR Vol. 8) |
 | **Retention Incentive** | Up to 25% (5 CFR) | Not applicable | Up to 25% (FMR Vol. 8) |
@@ -637,8 +637,8 @@ Active duty military → JFTR applies (travel)
 ### FTR Resources:
 - **FTR Full Text**: https://www.ecfr.gov/current/title-41/subtitle-F
 - **GSA Per Diem Rates**: https://www.gsa.gov/travel/plan-book/per-diem-rates
-- **FTR Bulletins**: https://www.gsa.gov/travel/plan-book/federal-travel-regulation-ftr-bulletins
-- **Travel Category Codes**: https://www.gsa.gov/travel/plan-book/transportation-airfare-rates-pov-rates-etc
+- **FTR Bulletins**: https://www.gsa.gov/policy-regulations/regulations/federal-travel-regulation/ftr-and-related-files
+- **Transportation & POV Rates**: https://www.gsa.gov/travel/plan-a-trip/transportation-airfare-rates-pov-rates-etc
 
 ### JFTR Resources:
 - **JFTR Online**: https://www.travel.dod.mil/Policy-Regulations/Joint-Travel-Regulations/
@@ -652,12 +652,12 @@ Active duty military → JFTR applies (travel)
 - **FMR Volume 9 (JFTR)**: https://comptroller.defense.gov/FinancialManagement/Reports/fmr2025/09.aspx
 - **DFAS MyPay**: https://mypay.dfas.mil (civilian payroll self-service)
 - **DFAS Civilian Pay**: https://www.dfas.mil/civilianemployees/
-- **DoD CPAC Locator**: https://www.cpms.osd.mil/subpage/cpac-map
+- **DoD CPMS (Civilian Personnel Management Service)**: https://www.cpms.osd.mil/ (main site - CPAC contact info available)
 
 ### Travel Tools:
-- **Per Diem Lookup**: https://www.gsa.gov/travel/plan-book/per-diem-rates/per-diem-rates-lookup
-- **Mileage Calculator**: https://www.gsa.gov/travel/plan-book/transportation-airfare-pov-rates-etc/privately-owned-vehicle-pov-mileage-reimbursement-rates
-- **Travel Card**: https://smartpay.gsa.gov/content/travel-card
+- **Per Diem Lookup**: https://www.gsa.gov/travel/plan-book/per-diem-rates
+- **POV Mileage Rates**: https://www.gsa.gov/travel/plan-a-trip/transportation-airfare-rates-pov-rates-etc/privately-owned-vehicle-pov-mileage-reimbursement
+- **Travel Card (SmartPay)**: https://smartpay.gsa.gov/
 - **DTS (Defense Travel System)**: https://www.defensetravel.dod.mil/
 
 ---
@@ -763,11 +763,12 @@ Active duty military → JFTR applies (travel)
 ---
 
 **Document Control**:
-- **Version**: 2.0.0 (FMR Integration Complete)
+- **Version**: 2.0.1 (FMR Integration + Link Verification)
 - **Last Updated**: October 28, 2025
 - **Regulations Covered**: FTR (41 CFR 300-304), JFTR (DoD FMR Vol. 9), FMR Vol. 8 (Civilian Pay)
 - **FTR Version**: FY 2025
 - **JFTR Version**: October 1, 2025
 - **FMR Version**: FY 2025
+- **POV Mileage Rate**: $0.70/mile (CY 2025, effective January 1, 2025)
 - **Next Review**: Quarterly (per diem rate changes, FMR updates)
-- **Sections Added**: FMR Volume 8 (6 chapters), FMR scenarios, expanded comparison table
+- **Changes in v2.0.1**: Updated POV mileage rate ($0.67→$0.70), verified/corrected all URLs
