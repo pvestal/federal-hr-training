@@ -10,6 +10,7 @@
 ## Learning Objectives
 
 After completing this case study, you will be able to:
+
 1. Identify qualifying life events (QLEs) for FEHB enrollment changes
 2. Calculate appropriate deadlines for QLE requests
 3. Determine required documentation
@@ -48,12 +49,14 @@ You are an HR Specialist at the Naval Support Activity (NSA) Mid-South in Millin
 > 4. I want to add my husband to my FEHB plan now, but I also want to know what happens when the baby is born
 >
 > Questions:
+>
 > - Can I add my husband to my plan?
 > - How long do I have to do this?
 > - What forms do I need?
 > - What about when the baby is born?
 > - Will my premiums go up?
 > - Do I have enough time or did I miss the deadline?
+>
 >
 > Please help! I'm stressed about all of this.
 >
@@ -82,6 +85,7 @@ As the HR Specialist, you need to:
 **Question 1**: How many qualifying life events (QLEs) are present in this scenario?
 
 **Question 2**: For each QLE, identify:
+
 - The specific event
 - The event date
 - The applicable 5 CFR regulation
@@ -90,11 +94,13 @@ As the HR Specialist, you need to:
 ### Part 2: Deadline Calculations
 
 **Question 3**: For Jennifer's marriage (September 30, 2025):
+
 - What is the deadline to submit the SF-2809?
 - Has the deadline passed as of October 25, 2025?
 - Show your calculation
 
 **Question 4**: For the husband's loss of coverage (November 15, 2025):
+
 - What is the deadline to submit the SF-2809?
 - Is this a qualifying life event?
 - Can Jennifer use this QLE if she missed the marriage deadline?
@@ -108,11 +114,13 @@ As the HR Specialist, you need to:
 ### Part 4: Coverage and Premium Changes
 
 **Question 7**: If Jennifer changes from Self Only to Self and Family:
+
 - What will her new coverage type be?
 - When will the change become effective?
 - Will her premiums increase? (Estimate based on typical premium structures)
 
 **Question 8**: When the baby is born in May 2026:
+
 - What must Jennifer do?
 - What is the deadline?
 - Is there anything special about adding a newborn vs. other family members?
@@ -146,12 +154,14 @@ In this scenario, there are **THREE** qualifying life events:
 ### Step 2: Calculate Deadlines
 
 **For Marriage QLE**:
+
 - Event date: September 30, 2025
 - Deadline: 60 days from event = **November 29, 2025**
 - Today's date: October 25, 2025
 - Time remaining: **35 days** ✅ STILL WITHIN DEADLINE
 
 **For Spouse's Loss of Coverage**:
+
 - Event date: November 15, 2025
 - Deadline: 60 days from event = **January 14, 2026**
 - Can be used as backup if needed
@@ -159,6 +169,7 @@ In this scenario, there are **THREE** qualifying life events:
 ### Step 3: Required Documentation
 
 Jennifer must provide:
+
 1. **SF-2809** (Health Benefits Election Form) - signed and dated
 2. **Marriage certificate** (copy acceptable)
 3. **Letter from husband's employer** confirming coverage termination date (helpful but not always required for marriage QLE)
