@@ -1,23 +1,25 @@
 # Federal Benefits HRO Training Program
 ## Comprehensive Training for Federal Human Resources Specialists
 
+> **⚠️ IMPORTANT DISCLAIMER**: This is **UNOFFICIAL** training material developed independently. This training is **NOT endorsed, approved, or sponsored by OPM (Office of Personnel Management)** or any federal agency. While it references current federal regulations and policies, users should always verify information with official OPM guidance and agency-specific policies.
+
 **Version**: 1.0.0
 **Last Updated**: October 28, 2025
-**Developed by**: Federal Benefits Training Team
+**Developed by**: Independent Federal Benefits Training Team
 **Target Audience**: Federal HR Specialists, Benefits Officers, HR Managers
 
 ---
 
 ## 📋 Program Overview
 
-This comprehensive training program is designed to develop Federal HR professionals from entry-level specialists to expert-level policy advisors. The curriculum incorporates the latest OPM guidance, 5 CFR regulations, and federal benefits updates for 2025-2026.
+This comprehensive training program is designed to develop Federal HR professionals from entry-level specialists to expert-level policy advisors. The curriculum references publicly available OPM guidance, 5 CFR regulations, and federal benefits updates for 2025-2026, but users should verify all information with official sources.
 
 ## 🎯 Training Philosophy
 
 This training is built on **practitioner-focused learning** with:
 - Real-world case studies from federal agencies
 - Interactive decision trees for complex scenarios
-- Current regulatory updates from OPM
+- References to current federal regulations (verify with official OPM sources)
 - Hands-on assessments and practical applications
 - Progressive skill development from basic to expert
 
@@ -122,9 +124,9 @@ This training is built on **practitioner-focused learning** with:
 
 ---
 
-## 📅 2025-2026 OPM Updates Integrated
+## 📅 2025-2026 Federal Benefits Updates Referenced
 
-This training incorporates the following recent updates:
+This training references the following publicly reported updates (verify with official OPM sources):
 
 ### FEHB Updates (2026 Plan Year)
 - ✅ 12.3% average premium increase
@@ -161,13 +163,13 @@ This training incorporates the following recent updates:
 - **Decision Trees**: Complex scenario navigation (Leave approval, RIF retention, Benefits eligibility)
 - **Case Studies**: Real anonymized federal agency scenarios
 - **Assessment Tools**: Competency-based quizzes and practical exams
-- **Reference Library**: Quick-access OPM guidance, CFR regulations, and agency policies
+- **Reference Library**: Links to official OPM guidance, CFR regulations, and agency policies
 
-### OPM Update Tracking System
-- Monthly regulatory change summaries
-- FEHB/FERS update notifications
-- 5 CFR amendment tracking
-- Policy implementation guidance
+### Federal Update Reference System
+- Links to official regulatory change summaries
+- References to FEHB/FERS update notifications
+- 5 CFR amendment reference tracking
+- Links to official policy implementation guidance
 
 ---
 
