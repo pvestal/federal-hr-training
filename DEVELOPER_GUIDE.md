@@ -99,7 +99,9 @@ federal-hr-training/
 ├── .github/                        # GitHub configuration
 │   ├── workflows/                  # CI/CD pipelines
 │   │   ├── quality-check.yml      # Content quality automation
-│   │   └── opm-update-monitor.yml # Regulatory monitoring
+│   │   ├── opm-update-monitor.yml # Daily OPM/Federal Register monitoring
+│   │   └── deploy-pages.yml       # GitHub Pages deployment
+│   ├── labeler.yml                 # Auto-labeling configuration
 │   ├── ISSUE_TEMPLATE/            # Issue templates
 │   │   ├── bug_report.yml
 │   │   ├── content-update.yml
@@ -135,9 +137,15 @@ federal-hr-training/
 │
 ├── reference-materials/           # Quick references
 ├── scripts/                       # Automation scripts
-│   ├── check_opm_currency.py     # OPM monitoring
-│   ├── check_module_completeness.py
-│   └── validate_curriculum.py
+│   ├── monitor_federal_register.py   # Federal Register API monitoring
+│   ├── monitor_opm_benefits.py       # OPM Benefits page monitoring
+│   ├── monitor_opm_policy.py         # OPM Policy page monitoring
+│   ├── monitor_5cfr.py               # 5 CFR regulation monitoring
+│   ├── generate_opm_update_report.py # Consolidate update reports
+│   ├── check_opm_currency.py         # Currency validation
+│   ├── check_module_completeness.py  # Module structure validation
+│   ├── check_accessibility.py        # Section 508 compliance
+│   └── validate_curriculum.py        # Directory structure validation
 │
 ├── reports/                       # Generated reports (not in git)
 │
@@ -568,20 +576,63 @@ START: [Initial situation]
 
 ### Script Overview
 
-#### `check_opm_currency.py`
-**Purpose**: Monitors OPM websites for updates
-**Runs**: Daily via GitHub Actions
+#### OPM Monitoring Scripts (Daily)
+
+**`monitor_federal_register.py`**
+**Purpose**: Queries Federal Register API for HR-related updates
+**Monitors**: OPM, MSPB, FLRA documents
+**Runs**: Daily at 9 AM UTC via `opm-update-monitor.yml`
+**Output**: Markdown report to stdout, cached in `scripts/.cache/`
+**GitHub Output**: Sets `has_updates` and `update_count` variables
+
+**`monitor_opm_benefits.py`**
+**Purpose**: Monitors OPM Benefits Administration pages for changes
+**Method**: Checksum-based change detection
+**Runs**: Daily at 9 AM UTC via `opm-update-monitor.yml`
+**Output**: Markdown report to stdout, checksums cached
+**GitHub Output**: Sets `has_updates` and `update_count` variables
+
+**`monitor_opm_policy.py`**
+**Purpose**: Monitors OPM Policy Data & Oversight pages
+**Monitors**: Pay/leave, classification, HR management policy pages
+**Runs**: Daily at 9 AM UTC via `opm-update-monitor.yml`
+**Output**: Markdown report to stdout, checksums cached
+**GitHub Output**: Sets `has_updates` and `update_count` variables
+
+**`monitor_5cfr.py`**
+**Purpose**: Monitors 5 CFR Title 5 for regulatory changes
+**Method**: API/checksum monitoring + comprehensive reference generation
+**Runs**: Daily at 9 AM UTC via `opm-update-monitor.yml`
+**Output**: `cfr_updates.md` when changes detected, updates 5 CFR reference guide
+**GitHub Output**: Sets `has_updates` variable
+
+**`generate_opm_update_report.py`**
+**Purpose**: Consolidates outputs from all monitoring scripts
+**Runs**: After all monitors complete in workflow
+**Output**: `opm_updates.md` (comprehensive report for GitHub issues/PRs)
+**Logic**: Checks cache files for update flags, generates report only if updates found
+
+#### Quality Assurance Scripts (On PR)
+
+**`check_opm_currency.py`**
+**Purpose**: Validates OPM references in training modules are current
+**Runs**: On every PR via `quality-check.yml`
 **Output**: `reports/opm_currency_check.json`
 
-#### `check_module_completeness.py`
+**`check_module_completeness.py`**
 **Purpose**: Validates modules have required sections
-**Runs**: On every PR
+**Runs**: On every PR via `quality-check.yml`
 **Output**: `reports/module_completeness.json`
 
-#### `validate_curriculum.py`
+**`validate_curriculum.py`**
 **Purpose**: Ensures directory structure is correct
-**Runs**: On every PR
+**Runs**: On every PR via `quality-check.yml`
 **Output**: Pass/Fail exit code
+
+**`check_accessibility.py`**
+**Purpose**: Validates Section 508 compliance
+**Runs**: On PRs via `quality-check.yml`
+**Output**: Accessibility report
 
 ### Running Scripts Locally
 
@@ -590,14 +641,23 @@ START: [Initial situation]
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
 
-# Run OPM currency check
+# Run OPM monitoring scripts (check for updates)
+python scripts/monitor_federal_register.py
+python scripts/monitor_opm_benefits.py
+python scripts/monitor_opm_policy.py
+python scripts/monitor_5cfr.py
+python scripts/generate_opm_update_report.py > opm_updates.md
+
+# Run quality assurance scripts
 python scripts/check_opm_currency.py
-
-# Run module completeness check
 python scripts/check_module_completeness.py
-
-# Run curriculum validation
+python scripts/check_accessibility.py
 python scripts/validate_curriculum.py
+```
+
+**Note**: Monitoring scripts cache results in `scripts/.cache/`. Delete cache files to force a fresh check:
+```bash
+rm -rf scripts/.cache/
 ```
 
 ### Adding New Automation
@@ -876,18 +936,43 @@ git push origin main
 3. View job details and logs
 
 #### `opm-update-monitor.yml`
-**Triggers**: Daily at 9 AM UTC
-**Jobs**:
-- Check Federal Register
-- Check OPM Benefits Center
-- Check 5 CFR changes
-- Create issues for updates
-- Commit update logs
+**Triggers**: Daily at 9 AM UTC, Manual via workflow_dispatch
+**Permissions**: contents (write), issues (write), pull-requests (write)
 
-**Auto-Generated Issues**:
-- Labeled `opm-update`, `needs-review`
-- Contains detected changes
-- Links to official sources
+**Jobs**:
+
+1. **check-opm-updates**:
+   - Runs `monitor_federal_register.py` - Checks Federal Register API
+   - Runs `monitor_opm_benefits.py` - Monitors OPM Benefits pages
+   - Runs `monitor_opm_policy.py` - Monitors OPM Policy pages
+   - Runs `generate_opm_update_report.py` - Consolidates findings
+   - Creates GitHub issue with update details
+   - Creates **draft pull request** with update report file
+   - Archives report in `opm-updates/YYYY/update-YYYY-MM-DD.md`
+
+2. **check-cfr-changes**:
+   - Runs `monitor_5cfr.py` - Monitors Title 5 CFR
+   - Creates GitHub issue if changes detected
+
+**Auto-Generated Outputs**:
+- **Issues**: Labeled `opm-update`, `needs-review`, `documentation`
+- **Pull Requests**: Draft PRs labeled `opm-update`, `automated`, `needs-review`
+- **Reports**: Markdown files in `opm-updates/` directory
+
+**Key Features**:
+- Uses `peter-evans/create-pull-request@v6` for automated PRs
+- Draft PRs prevent accidental auto-merge
+- Respects branch protection rules
+- All PRs require human review before merging
+- Includes links to official OPM/Federal Register sources
+
+**Manual Trigger**:
+```bash
+# Via GitHub CLI
+gh workflow run opm-update-monitor.yml
+
+# Or via GitHub UI: Actions tab → OPM Update Monitor → Run workflow
+```
 
 ### Workflow Customization
 

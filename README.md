@@ -165,11 +165,28 @@ This training references the following publicly reported updates (verify with of
 - **Assessment Tools**: Competency-based quizzes and practical exams
 - **Reference Library**: Links to official OPM guidance, CFR regulations, and agency policies
 
+### Automated OPM Monitoring System
+This repository includes an automated system that monitors federal HR updates daily:
+- **Federal Register**: Tracks HR-related rules and notices from OPM, MSPB, and FLRA
+- **OPM Benefits Administration**: Monitors changes to benefits guidance and fact sheets
+- **OPM Policy & Oversight**: Tracks policy documents and regulatory updates
+- **5 CFR Monitoring**: Detects changes to Title 5 Code of Federal Regulations
+
+When updates are detected, the system automatically:
+- ✅ Creates a GitHub issue with update details
+- ✅ Generates a pull request with the change report
+- ✅ Archives the report in `opm-updates/YYYY/`
+- ✅ Notifies repository watchers
+
+**Manual Trigger**: You can also run the monitor manually via the "Actions" tab → "OPM Update Monitor" → "Run workflow"
+
 ### Federal Update Reference System
+- Automated daily monitoring of OPM, Federal Register, and 5 CFR
 - Links to official regulatory change summaries
 - References to FEHB/FERS update notifications
 - 5 CFR amendment reference tracking
 - Links to official policy implementation guidance
+- Update archive in `opm-updates/` directory
 
 ---
 
@@ -250,5 +267,7 @@ Contributions from federal HR professionals are welcome. Please see `CONTRIBUTIN
 
 ---
 
-**Last OPM Update Check**: October 28, 2025
-**Next Scheduled Update**: January 2026 (Post-Open Season)
+**Automated Monitoring**: Daily at 9 AM UTC (4 AM EST)
+**Last Manual Review**: October 28, 2025
+**Next Scheduled Review**: January 2026 (Post-Open Season)
+**View Update History**: See `opm-updates/` directory for automated monitoring reports

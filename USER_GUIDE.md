@@ -175,9 +175,10 @@ Modules are named: `module-X.Y-topic-name.md`
 - Examples: FEHB qualifying life events, leave approval, RIF retention
 
 **OPM Updates**:
-- Go to `opm-updates/2025/`
-- Check `CHANGELOG-2025.md` for recent changes
-- Review monthly update files
+- Go to `opm-updates/` folder (automated monitoring reports)
+- Check GitHub Issues labeled `opm-update` for detected changes
+- Review automated pull requests for regulatory updates
+- See `opm-updates/README.md` for details on the monitoring system
 
 ---
 
@@ -251,16 +252,30 @@ Decision trees help you navigate complex scenarios:
 
 ### Staying Current with OPM Updates
 
-**Monthly Review** (Recommended):
-1. Check `opm-updates/2025/CHANGELOG-2025.md`
-2. Look for updates relevant to your work
-3. Review training modules affected
-4. Note any policy changes
+**Automated Monitoring** (Daily):
+The repository includes an automated OPM monitoring system that:
+- Runs daily at 9 AM UTC (4 AM EST)
+- Checks Federal Register, OPM Benefits, OPM Policy, and 5 CFR
+- Creates GitHub issues when updates are detected
+- Generates pull requests with update reports
+- Archives reports in `opm-updates/YYYY/`
 
-**GitHub Watch** (Automated):
+**Getting Notifications**:
 1. Click "Watch" button on repository
-2. Select "All Activity"
-3. Get email notifications when updates posted
+2. Select "Issues" and "Pull Requests"
+3. Receive email when automated updates are detected
+4. Issues are labeled `opm-update` and `needs-review`
+
+**Reviewing Updates**:
+1. Check GitHub Issues for `opm-update` label
+2. Review the automated update report
+3. Identify which training modules are affected
+4. Follow links to official OPM sources to verify
+5. Comment on the issue if you're working on updates
+
+**Manual Check** (Optional):
+- Go to Actions tab → "OPM Update Monitor" → "Run workflow"
+- Manually trigger an immediate check for updates
 
 ---
 
@@ -473,10 +488,10 @@ A: Yes. It's public domain and free for all federal agencies and employees.
 ### Content Questions
 
 **Q: How current is the information?**
-A: All content is reviewed monthly. Check `opm-updates/2025/CHANGELOG-2025.md` for latest updates. Last review: October 28, 2025.
+A: Content is monitored daily through automated workflows. The system checks Federal Register, OPM websites, and 5 CFR every day at 9 AM UTC. Check `opm-updates/` directory for the latest automated reports. Last manual review: October 28, 2025.
 
 **Q: What if OPM guidance changes?**
-A: We monitor OPM daily (automated). Updates are made within 30 days of significant changes. GitHub watch feature notifies you of updates.
+A: The automated monitoring system detects changes daily and creates GitHub issues/PRs when updates are found. Human reviewers then update training modules within 30 days of significant changes. Enable GitHub notifications to be alerted immediately when updates are detected.
 
 **Q: Can I print the modules?**
 A: Yes. Markdown files can be printed from browser or converted to PDF. Respect copyright on any linked external materials.
