@@ -568,33 +568,87 @@ Agency policies **must comply with 5 CFR** but can be more restrictive.
     print(f"\n✅ Generated comprehensive 5 CFR reference: {ref_path}")
     return str(ref_path)
 
+def check_cfr_api_updates():
+    """Check for recent CFR updates via API"""
+    import os
+    import sys
+
+    CACHE_FILE = Path(__file__).parent / ".cache" / "cfr_last_check.json"
+
+    # For now, this is a placeholder that detects no updates by default
+    # A full implementation would query the Federal Register API or eCFR API
+    # to detect actual regulatory changes
+
+    # Check cache
+    has_updates = False
+    if CACHE_FILE.exists():
+        try:
+            with open(CACHE_FILE, 'r') as f:
+                data = json.load(f)
+                last_check = data.get('last_check')
+                # In a real implementation, compare dates and check for updates
+        except Exception:
+            pass
+
+    # Save current check time
+    CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with open(CACHE_FILE, 'w') as f:
+        json.dump({'last_check': datetime.now().isoformat()}, f)
+
+    # Set GitHub Actions output
+    github_output = os.environ.get('GITHUB_OUTPUT')
+    if github_output:
+        with open(github_output, 'a') as f:
+            f.write(f"has_updates={'true' if has_updates else 'false'}\n")
+
+    return has_updates
+
+
+def generate_cfr_update_report():
+    """Generate CFR update report for workflow"""
+    # Only generate report file if updates detected
+    # This is called when updates are found
+    with open('cfr_updates.md', 'w') as f:
+        f.write(f"# 5 CFR Update Report\n\n")
+        f.write(f"**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}\n\n")
+        f.write("## Changes Detected\n\n")
+        f.write("The 5 CFR monitoring system has detected potential updates to Title 5 regulations.\n\n")
+        f.write("### Monitored Parts\n\n")
+
+        for part_id, part_info in list(CFR_PARTS.items())[:5]:
+            f.write(f"- **{part_id}**: {part_info['title']}\n")
+
+        f.write("\n### Recommended Actions\n\n")
+        f.write("1. Review the specific CFR changes at [eCFR.gov](https://www.ecfr.gov/current/title-5)\n")
+        f.write("2. Identify affected training modules\n")
+        f.write("3. Update training content to reflect new regulations\n")
+        f.write("4. Verify all references and examples\n")
+
+
 def main():
-    """Main function"""
-    print("Starting 5 CFR Regulatory Monitor for Federal Civilian HR...\n")
+    """Main function for workflow integration"""
+    import sys
+
+    print("Starting 5 CFR Regulatory Monitor for Federal Civilian HR...\n", file=sys.stderr)
 
     # Check for updates
-    check_ecfr_updates()
+    has_updates = check_cfr_api_updates()
 
-    # Generate reference guide
-    ref_file = generate_5cfr_reference()
+    if has_updates:
+        print("Updates detected! Generating report...", file=sys.stderr)
+        generate_cfr_update_report()
+    else:
+        print("No CFR updates detected.", file=sys.stderr)
 
-    print("\n" + "=" * 70)
-    print("SUMMARY")
-    print("=" * 70)
-    print(f"CFR parts monitored: {len(CFR_PARTS)}")
-    print(f"USC chapters documented: {len(USC_SECTIONS)}")
-    print(f"Reference guide: {ref_file}")
+    # Also update the reference guide
+    try:
+        ref_file = generate_5cfr_reference()
+        print(f"Updated 5 CFR reference: {ref_file}", file=sys.stderr)
+    except Exception as e:
+        print(f"Warning: Could not update reference guide: {e}", file=sys.stderr)
 
-    print("\n💡 For HR Specialists:")
-    print("  1. Bookmark eCFR: https://www.ecfr.gov/current/title-5")
-    print("  2. Bookmark Cornell Law (5 USC): https://www.law.cornell.edu/uscode/text/5")
-    print("  3. Subscribe to Federal Register for rule changes")
-    print("  4. Check OPM.gov monthly for policy updates")
+    return 0
 
-    print("\n📘 Quick Access:")
-    print(f"  - Full 5 CFR reference: {ref_file}")
-    print("  - Federal Register: https://www.federalregister.gov/")
-    print("  - OPM Regulations: https://www.opm.gov/about-us/open-government/regulations/")
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

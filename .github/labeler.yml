@@ -1,0 +1,36 @@
+# Auto-labeler configuration for Federal HR Training repository
+# This file is used by the actions/labeler action to automatically apply labels to PRs
+
+documentation:
+  - '**/*.md'
+  - 'reference-materials/**/*'
+  - 'USER_GUIDE.md'
+  - 'DEVELOPER_GUIDE.md'
+  - 'CURRICULUM_GUIDE.md'
+
+training-content:
+  - '01-basic-hr/**/*'
+  - '02-intermediate-hr/**/*'
+  - '03-advanced-hr/**/*'
+  - '04-expert-hr/**/*'
+
+case-studies:
+  - 'case-studies/**/*'
+
+decision-trees:
+  - 'decision-trees/**/*'
+
+scripts:
+  - 'scripts/**/*.py'
+
+workflows:
+  - '.github/workflows/**/*'
+
+opm-update:
+  - 'opm-updates/**/*'
+
+configuration:
+  - '.github/**/*'
+  - '.markdownlint.json'
+  - '.markdown-link-check.json'
+  - '.spellcheck.yml'
