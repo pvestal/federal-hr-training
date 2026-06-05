@@ -1,0 +1,40 @@
+# CIVPAY Q&A — seed questions to ground (authoring input).
+# Each item: a real HR/payroll question + the corpus tag(s) most likely to hold the
+# answer + the role(s) it serves. The generator probes these and drafts cited rows.
+# tags: dcps (DCPS R26-1 UM/IFSpec/DBSpec) | dcpds (DCPDS R12) | fmr_vol8 (DoD FMR Vol 8)
+
+- area: action-initiation
+  questions:
+    - { q: "What information must the SF-52/RPA include to start a personnel action?", tags: [dcpds, fmr_vol8], roles: [HR Specialist] }
+    - { q: "What is a Nature of Action Code (NOAC) and how do I pick the right one?", tags: [dcps, fmr_vol8], roles: [HR Specialist] }
+
+- area: pay-driving-fields
+  questions:
+    - { q: "Which fields on a personnel action actually drive pay (pay plan, grade, step, effective date, locality)?", tags: [dcps], roles: [HR Specialist, Payroll] }
+    - { q: "Where are retirement, FEHB, and TSP election fields recorded for pay?", tags: [dcps], roles: [Payroll] }
+
+- area: handoff-interface
+  questions:
+    - { q: "How does a personnel action get from DCPDS (HR) to DCPS (pay)?", tags: [dcps], roles: [HR Specialist, Payroll] }
+    - { q: "Who owns the action at each step — HR or Payroll?", tags: [dcps], roles: [HR Specialist, Payroll] }
+
+- area: dcps-receipt
+  questions:
+    - { q: "When does a personnel action update the DCPS master record and take effect in pay?", tags: [dcps], roles: [Payroll] }
+
+- area: pay-calc-deductions
+  questions:
+    - { q: "How is gross pay calculated after a pay-affecting personnel action?", tags: [dcps], roles: [Payroll] }
+    - { q: "In what order are mandatory deductions taken from civilian pay?", tags: [fmr_vol8], roles: [Payroll] }
+    - { q: "How is pay set on a promotion (two-step / maximum payable rate)?", tags: [fmr_vol8], roles: [HR Specialist, Payroll] }
+    - { q: "When does a within-grade increase take effect and how is the waiting period counted?", tags: [fmr_vol8], roles: [HR Specialist, Payroll] }
+
+- area: verification
+  questions:
+    - { q: "How does an HR specialist confirm an action effected — DCPDS, HR Link, or MyBiz?", tags: [dcps, dcpds], roles: [HR Specialist] }
+    - { q: "Who certifies time and attendance and what does DCPS record on certification?", tags: [dcps], roles: [Timekeeper, Payroll] }
+
+- area: corrections
+  questions:
+    - { q: "Pay is wrong after a personnel action — how is it corrected (manual pay adjustment)?", tags: [dcps], roles: [Payroll] }
+    - { q: "How are civilian pay underpayments and debts handled?", tags: [fmr_vol8], roles: [Payroll] }
