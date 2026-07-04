@@ -1,0 +1,30 @@
+{
+  "list": "CIVPAY Division of Labor",
+  "description": "Consolidated who-does-what for the DoD/DON civilian personnel-action-to-pay lifecycle, grounded in DCPDS UM, DCPS UM, and the governing CIVPAY authorities. AUTHORITY PRECEDENCE (a lower tier implements but never overrides a higher one): Tier 1 Federal = OPM (5 U.S.C., 5 CFR, OPM GPPA); Tier 2 DoD/overseas = DoD FMR Vol 8, DoDI 1400.25, DSSR; Tier 3 Systems = DCPDS UM, DCPS UM/Interface Spec; Tier 4 Component = DON/OCHR instructions & roles. Each row separates the GoverningAuthority (the rule's source, Tier 1-2) from the LocalProcedure/System (how it is executed, Tier 3-4).",
+  "columns": [
+    { "name": "Title", "display": "Task / Process Step", "type": "Text", "required": true, "indexed": true, "maxLength": 255 },
+    { "name": "Phase", "type": "Choice", "required": true, "choices": [
+      "Initiation", "Effecting (HR)", "HR→Pay Interface", "Timekeeping", "Pay Computation",
+      "Certification", "Disbursing", "Reconciliation/Audit", "Corrections/Debt", "Verification", "Overseas" ] },
+    { "name": "ResponsibleRole", "type": "MultiChoice", "required": true, "choices": [
+      "Manager/Supervisor", "HR Specialist", "Payroll (CSR)", "Timekeeper", "Certifying Officer",
+      "Employee", "System (automated)", "DFAS Disbursing" ] },
+    { "name": "System", "type": "Choice", "choices": [
+      "DCPDS", "DCPS", "HR Link", "MyBiz", "Disbursing", "Manual/Offline" ] },
+    { "name": "GoverningAuthority", "display": "Governing Authority (Tier 1-2)", "type": "Text", "required": true, "maxLength": 255 },
+    { "name": "LocalProcedure", "display": "Local Procedure / System (Tier 3-4)", "type": "Text", "maxLength": 255 },
+    { "name": "AuthorityTier", "type": "Choice", "choices": [
+      "T1 Federal (OPM)", "T2 DoD/Overseas (FMR/DoDI/DSSR)", "T3 System (DCPDS/DCPS)", "T4 Component (DON)" ] },
+    { "name": "ReferenceLink", "type": "URL", "description": "Link to the governing reference, report, or audit (public URL where one exists; internal manual/report citation otherwise)." },
+    { "name": "Notes", "type": "Note", "richText": false }
+  ],
+  "views": [
+    { "name": "By Phase (default)", "default": true, "groupBy": "Phase",
+      "fields": ["Title", "ResponsibleRole", "System", "GoverningAuthority", "LocalProcedure", "ReferenceLink"] },
+    { "name": "By Role", "groupBy": "ResponsibleRole",
+      "fields": ["Title", "Phase", "System", "GoverningAuthority", "LocalProcedure"] },
+    { "name": "By Authority Tier", "groupBy": "AuthorityTier",
+      "fields": ["Title", "Phase", "GoverningAuthority", "LocalProcedure", "ReferenceLink"] }
+  ],
+  "notes": "Provision the List with the columns above, then import data/civpay_dol.csv. The precedence rule is enforced editorially: GoverningAuthority always names a Tier 1-2 source; DON/system references go in LocalProcedure, never as the governing authority. Reuses the CIVPAY Q&A search web part pattern (sharepoint/dol-search-webpart.html) for a searchable view."
+}

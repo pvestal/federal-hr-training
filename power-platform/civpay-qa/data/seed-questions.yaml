@@ -38,3 +38,26 @@
   questions:
     - { q: "Pay is wrong after a personnel action — how is it corrected (manual pay adjustment)?", tags: [dcps], roles: [Payroll] }
     - { q: "How are civilian pay underpayments and debts handled?", tags: [fmr_vol8], roles: [Payroll] }
+
+# ── Top-25 extension (2026-07-04): domestic pay mechanics ──
+- area: benefits-deductions
+  questions:
+    - { q: "How is FEHB enrollment and its premium deduction established for pay?", tags: [dcps], roles: [Payroll, Employee] }
+    - { q: "How are TSP contributions and the agency match processed?", tags: [dcps], roles: [Payroll, Employee] }
+    - { q: "How is federal and state income tax withholding set for a civilian employee?", tags: [fmr_vol8], roles: [Payroll, Employee] }
+
+- area: allotments-garnishments
+  questions:
+    - { q: "How are allotments and other voluntary deductions set up?", tags: [fmr_vol8], roles: [Payroll, Employee] }
+    - { q: "How are involuntary deductions (garnishments, tax levies, child support) handled and prioritized?", tags: [fmr_vol8], roles: [Payroll] }
+
+- area: premium-pay
+  questions:
+    - { q: "How is overtime computed and what is the FLSA exempt vs non-exempt distinction?", tags: [fmr_vol8], roles: [HR Specialist, Payroll] }
+    - { q: "How are night, Sunday, and holiday premiums paid?", tags: [fmr_vol8], roles: [Payroll, Timekeeper] }
+
+- area: retro-separation-caps
+  questions:
+    - { q: "How is retroactive pay processed after a late personnel action?", tags: [dcps], roles: [Payroll] }
+    - { q: "How is final pay handled at separation, including unused annual leave?", tags: [fmr_vol8], roles: [HR Specialist, Payroll] }
+    - { q: "How are aggregate pay limitations (pay caps) applied?", tags: [fmr_vol8], roles: [HR Specialist, Payroll] }

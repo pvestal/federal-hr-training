@@ -1,0 +1,93 @@
+<!--
+  CIVPAY Division of Labor — search web part (vanilla JS, no dependencies).
+  Embed on a SharePoint page (Embed / Script Editor). Reads the "CIVPAY Division
+  of Labor" List over REST with the viewer's permissions and does client-side
+  search + Phase/Role filtering. Every row shows its Governing Authority (Tier
+  1-2) distinctly from the Local Procedure (Tier 3-4) and links to the reference.
+  Work-network safe: no CDN, npm, or external calls.
+-->
+<div id="dol-app">
+  <style>
+    #dol-app { font-family: "Segoe UI", Arial, sans-serif; color: #1b1b1b; max-width: 1040px; }
+    #dol-app .d-head { margin: 0 0 4px; font-size: 20px; font-weight: 600; }
+    #dol-app .d-sub { margin: 0 0 12px; font-size: 12px; color: #666; }
+    #dol-app .d-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    #dol-app input, #dol-app select { font: inherit; padding: 8px 10px; border: 1px solid #c8c8c8; border-radius: 4px; }
+    #dol-app input#d-q { flex: 1 1 300px; }
+    #dol-app .d-count { font-size: 12px; color: #666; margin-bottom: 8px; }
+    #dol-app .d-card { border: 1px solid #e1e1e1; border-left: 4px solid #107c41; border-radius: 4px; padding: 12px 14px; margin-bottom: 10px; background: #fff; }
+    #dol-app .d-task { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+    #dol-app .d-grid { display: grid; grid-template-columns: 130px 1fr; gap: 3px 10px; font-size: 13px; }
+    #dol-app .d-lbl { color: #666; }
+    #dol-app .d-auth { color: #107c41; font-weight: 600; }
+    #dol-app .d-tag { display: inline-block; background: #eaf3ec; color: #107c41; border-radius: 3px; padding: 1px 6px; font-size: 11px; margin-right: 4px; }
+    #dol-app a { color: #0f6cbd; }
+    #dol-app mark { background: #fff3b0; }
+    #dol-app .d-err { color: #a4262c; padding: 16px 0; }
+    #dol-app .d-disc { font-size: 11px; color: #888; margin-top: 14px; border-top: 1px solid #eee; padding-top: 8px; }
+  </style>
+  <p class="d-head">CIVPAY Division of Labor</p>
+  <p class="d-sub">Who does what across the personnel-action-to-pay lifecycle. Authority precedence: OPM (T1) &gt; DoD FMR / DoDI / DSSR (T2) &gt; DCPDS/DCPS systems (T3) &gt; DON component (T4). A lower tier never overrides a higher one.</p>
+  <div class="d-controls">
+    <input id="d-q" type="search" placeholder="Search task, authority, system…" autocomplete="off" />
+    <select id="d-phase"><option value="">All phases</option></select>
+    <select id="d-role"><option value="">All roles</option></select>
+  </div>
+  <div class="d-count" id="d-count"></div>
+  <div id="d-results"><p>Loading…</p></div>
+  <p class="d-disc">UNOFFICIAL working aid. Governing Authority names the rule's source (Tier 1-2); Local Procedure names how DON/DCPDS/DCPS executes it. Verify against the cited source of record before acting.</p>
+</div>
+<script>
+(function () {
+  "use strict";
+  var LIST_TITLE = "CIVPAY Division of Labor";
+  var app = document.getElementById("dol-app");
+  var $q = app.querySelector("#d-q"), $phase = app.querySelector("#d-phase"),
+      $role = app.querySelector("#d-role"), $count = app.querySelector("#d-count"),
+      $res = app.querySelector("#d-results");
+  var ALL = [];
+  function site() { return (window._spPageContextInfo && _spPageContextInfo.webAbsoluteUrl) || window.location.origin; }
+  function esc(s) { return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function hl(t, terms) { var o = esc(t); terms.forEach(function (x){ if(x.length<2)return; o=o.replace(new RegExp("("+x.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig"),"<mark>$1</mark>"); }); return o; }
+  function opts(sel, vals) { vals.sort().forEach(function(v){ sel.insertAdjacentHTML("beforeend","<option value='"+esc(v)+"'>"+esc(v)+"</option>"); }); }
+  function load() {
+    var url = site()+"/_api/web/lists/getbytitle('"+encodeURIComponent(LIST_TITLE)+"')/items?$select=Title,Phase,ResponsibleRole,System,GoverningAuthority,LocalProcedure,AuthorityTier,ReferenceLink,Notes&$top=500";
+    return fetch(url,{headers:{"Accept":"application/json;odata=nometadata"},credentials:"same-origin"})
+      .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).then(function(j){ return j.value||[]; });
+  }
+  function render() {
+    var terms = $q.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    var ph=$phase.value, ro=$role.value;
+    var rows = ALL.filter(function(it){
+      if (ph && it.Phase!==ph) return false;
+      if (ro && (it.ResponsibleRole||[]).indexOf(ro)===-1) return false;
+      if (!terms.length) return true;
+      var hay=(it.Title+" "+it.GoverningAuthority+" "+it.LocalProcedure+" "+(it.System||"")+" "+(it.Notes||"")).toLowerCase();
+      return terms.every(function(t){ return hay.indexOf(t)!==-1; });
+    });
+    $count.textContent = rows.length+" of "+ALL.length+" step(s)";
+    if (!rows.length) { $res.innerHTML="<p>No matching steps.</p>"; return; }
+    $res.innerHTML = rows.map(function(it){
+      var roles=(it.ReferenceLink&&it.ReferenceLink.Url)?it.ReferenceLink.Url:(it.ReferenceLink||"");
+      var link = roles ? "<a href='"+esc(roles)+"' target='_blank' rel='noopener'>"+esc(roles)+"</a>" : "&mdash;";
+      var roleTags=(it.ResponsibleRole||[]).map(function(r){return "<span class='d-tag'>"+esc(r)+"</span>";}).join("");
+      return "<div class='d-card'><div class='d-task'>"+hl(it.Title,terms)+"</div><div class='d-grid'>"+
+        "<span class='d-lbl'>Phase</span><span>"+esc(it.Phase)+"</span>"+
+        "<span class='d-lbl'>Responsible</span><span>"+roleTags+"</span>"+
+        "<span class='d-lbl'>System</span><span>"+esc(it.System||"—")+"</span>"+
+        "<span class='d-lbl'>Governing auth.</span><span class='d-auth'>"+hl(it.GoverningAuthority,terms)+" <span class='d-tag'>"+esc(it.AuthorityTier||"")+"</span></span>"+
+        "<span class='d-lbl'>Local procedure</span><span>"+hl(it.LocalProcedure||"—",terms)+"</span>"+
+        "<span class='d-lbl'>Reference</span><span>"+link+"</span>"+
+        (it.Notes?"<span class='d-lbl'>Notes</span><span>"+esc(it.Notes)+"</span>":"")+
+        "</div></div>";
+    }).join("");
+  }
+  load().then(function(items){ ALL=items;
+    opts($phase, Array.from(new Set(items.map(function(i){return i.Phase;}).filter(Boolean))));
+    opts($role, Array.from(new Set(items.flatMap(function(i){return i.ResponsibleRole||[];}))));
+    render();
+  }).catch(function(e){ $res.innerHTML="<p class='d-err'>Could not load '"+esc(LIST_TITLE)+"' ("+esc(e.message)+"). Confirm the list exists on this site.</p>"; });
+  var t; $q.addEventListener("input",function(){clearTimeout(t);t=setTimeout(render,120);});
+  $phase.addEventListener("change",render); $role.addEventListener("change",render);
+})();
+</script>
