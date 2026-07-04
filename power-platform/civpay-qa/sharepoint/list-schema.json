@@ -1,11 +1,11 @@
 {
   "list": "CIVPAY Q&A",
-  "description": "Searchable, citation-grounded CIVPAY answers. Every row cites an official source (DCPS R26-1, DCPDS, DoD FMR Vol 8, 5 CFR, OPM GPPA). No row ships without a Citation.",
+  "description": "Searchable, citation-grounded CIVPAY answers (domestic SOP#1 + overseas/special-category SOP#2). Every row cites an official source (DCPS R26-1, DCPDS, DoD FMR Vol 8, 5 CFR, OPM GPPA, DSSR, DoDI 1400.25). No row ships without a Citation.",
   "columns": [
     { "name": "Title", "display": "Question", "type": "Text", "required": true, "indexed": true, "maxLength": 255 },
     { "name": "Answer", "type": "Note", "required": true, "richText": false, "appendOnly": false },
     { "name": "Citation", "type": "Text", "required": true, "maxLength": 255 },
-    { "name": "System", "type": "Choice", "fillIn": false, "choices": ["DCPS", "DCPDS", "FMR Vol 8", "5 CFR", "OPM GPPA"] },
+    { "name": "System", "type": "Choice", "fillIn": false, "choices": ["DCPS", "DCPDS", "FMR Vol 8", "5 CFR", "OPM GPPA", "DSSR", "DoDI 1400.25"] },
     { "name": "Role", "type": "MultiChoice", "choices": ["HR Specialist", "Payroll", "CSR", "Timekeeper", "Employee"] },
     { "name": "Keywords", "type": "Text", "maxLength": 255 },
     { "name": "LastReviewed", "type": "DateTime", "format": "DateOnly", "required": true }
