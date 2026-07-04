@@ -1,0 +1,164 @@
+<!--
+  CIVPAY Q&A — search web part (vanilla JS, no dependencies).
+
+  Drop this into a SharePoint page via an "Embed" web part (modern) or a
+  "Script Editor / Content Editor" web part (classic). It reads the "CIVPAY Q&A"
+  List through the SharePoint REST API on the SAME site and does client-side
+  search + filtering. No CDN, no npm, no external calls — work-network safe.
+
+  It is intentionally read-only. Content upkeep is the Power Automate flow
+  (../flows/civpay-upkeep-flow.json); authoring is the Tower generator
+  (../tools/generate_qa_from_probe.py). Every answer shows its Citation —
+  a row with no citation never ships (enforced upstream in list-schema.json).
+
+  CONFIG: if the List title differs, change LIST_TITLE below. The web part
+  resolves the site URL from _spPageContextInfo (present on any SharePoint page).
+-->
+<div id="civpay-qa-app">
+  <style>
+    #civpay-qa-app { font-family: "Segoe UI", Arial, sans-serif; color: #1b1b1b; max-width: 960px; }
+    #civpay-qa-app .cq-head { margin: 0 0 4px; font-size: 20px; font-weight: 600; }
+    #civpay-qa-app .cq-sub { margin: 0 0 12px; font-size: 12px; color: #666; }
+    #civpay-qa-app .cq-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    #civpay-qa-app input, #civpay-qa-app select {
+      font: inherit; padding: 8px 10px; border: 1px solid #c8c8c8; border-radius: 4px; }
+    #civpay-qa-app input#cq-q { flex: 1 1 320px; }
+    #civpay-qa-app .cq-count { font-size: 12px; color: #666; margin-bottom: 8px; }
+    #civpay-qa-app .cq-card {
+      border: 1px solid #e1e1e1; border-left: 4px solid #0f6cbd; border-radius: 4px;
+      padding: 12px 14px; margin-bottom: 10px; background: #fff; }
+    #civpay-qa-app .cq-q { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+    #civpay-qa-app .cq-a { font-size: 14px; white-space: pre-wrap; margin-bottom: 8px; }
+    #civpay-qa-app .cq-meta { font-size: 12px; color: #444; display: flex; flex-wrap: wrap; gap: 10px; }
+    #civpay-qa-app .cq-cite { color: #0f6cbd; font-style: italic; }
+    #civpay-qa-app .cq-tag {
+      display: inline-block; background: #eef4fb; color: #0f6cbd; border-radius: 3px;
+      padding: 1px 6px; font-size: 11px; }
+    #civpay-qa-app mark { background: #fff3b0; }
+    #civpay-qa-app .cq-empty, #civpay-qa-app .cq-err { color: #666; padding: 16px 0; }
+    #civpay-qa-app .cq-err { color: #a4262c; }
+    #civpay-qa-app .cq-disc { font-size: 11px; color: #888; margin-top: 14px; border-top: 1px solid #eee; padding-top: 8px; }
+  </style>
+
+  <p class="cq-head">CIVPAY Q&amp;A</p>
+  <p class="cq-sub">Searchable, citation-grounded answers. Every answer cites an official source.</p>
+
+  <div class="cq-controls">
+    <input id="cq-q" type="search" placeholder="Search questions, answers, keywords…" autocomplete="off" />
+    <select id="cq-system"><option value="">All systems</option></select>
+    <select id="cq-role"><option value="">All roles</option></select>
+  </div>
+  <div class="cq-count" id="cq-count"></div>
+  <div id="cq-results"><p class="cq-empty">Loading…</p></div>
+  <p class="cq-disc">UNOFFICIAL working aid. Not an official OPM/DoD publication. Verify against the cited source of record before acting.</p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var LIST_TITLE = "CIVPAY Q&A";
+  var PAGE_SIZE = 500; // Q&A set is small; one page is plenty
+
+  var app = document.getElementById("civpay-qa-app");
+  var $q = app.querySelector("#cq-q");
+  var $sys = app.querySelector("#cq-system");
+  var $role = app.querySelector("#cq-role");
+  var $count = app.querySelector("#cq-count");
+  var $results = app.querySelector("#cq-results");
+  var ALL = [];
+
+  function siteUrl() {
+    if (window._spPageContextInfo && _spPageContextInfo.webAbsoluteUrl) {
+      return _spPageContextInfo.webAbsoluteUrl;
+    }
+    // fallback: current origin + first path segment
+    return window.location.origin;
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function highlight(text, terms) {
+    var out = esc(text);
+    terms.forEach(function (t) {
+      if (t.length < 2) return;
+      var re = new RegExp("(" + t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "ig");
+      out = out.replace(re, "<mark>$1</mark>");
+    });
+    return out;
+  }
+
+  function fetchItems() {
+    var url = siteUrl() + "/_api/web/lists/getbytitle('" + encodeURIComponent(LIST_TITLE) +
+      "')/items?$select=Title,Answer,Citation,System,Role,Keywords,LastReviewed&$top=" + PAGE_SIZE;
+    return fetch(url, { headers: { "Accept": "application/json;odata=nometadata" }, credentials: "same-origin" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (j) { return j.value || []; });
+  }
+
+  function populateFilters(items) {
+    var systems = {}, roles = {};
+    items.forEach(function (it) {
+      if (it.System) systems[it.System] = 1;
+      (it.Role || []).forEach(function (r) { roles[r] = 1; });
+    });
+    Object.keys(systems).sort().forEach(function (s) {
+      $sys.insertAdjacentHTML("beforeend", '<option value="' + esc(s) + '">' + esc(s) + "</option>");
+    });
+    Object.keys(roles).sort().forEach(function (r) {
+      $role.insertAdjacentHTML("beforeend", '<option value="' + esc(r) + '">' + esc(r) + "</option>");
+    });
+  }
+
+  function render() {
+    var terms = $q.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    var sys = $sys.value, role = $role.value;
+    var rows = ALL.filter(function (it) {
+      if (sys && it.System !== sys) return false;
+      if (role && (it.Role || []).indexOf(role) === -1) return false;
+      if (!terms.length) return true;
+      var hay = (it.Title + " " + it.Answer + " " + (it.Keywords || "") + " " + it.Citation).toLowerCase();
+      return terms.every(function (t) { return hay.indexOf(t) !== -1; });
+    });
+
+    $count.textContent = rows.length + " of " + ALL.length + " answer(s)";
+    if (!rows.length) {
+      $results.innerHTML = '<p class="cq-empty">No matching answers. Try fewer or different terms.</p>';
+      return;
+    }
+    $results.innerHTML = rows.map(function (it) {
+      var roleTags = (it.Role || []).map(function (r) { return '<span class="cq-tag">' + esc(r) + "</span>"; }).join(" ");
+      var reviewed = it.LastReviewed ? String(it.LastReviewed).slice(0, 10) : "";
+      return '<div class="cq-card">' +
+        '<div class="cq-q">' + highlight(it.Title, terms) + "</div>" +
+        '<div class="cq-a">' + highlight(it.Answer, terms) + "</div>" +
+        '<div class="cq-meta">' +
+          '<span class="cq-cite">Source: ' + esc(it.Citation) + "</span>" +
+          (it.System ? '<span class="cq-tag">' + esc(it.System) + "</span>" : "") +
+          roleTags +
+          (reviewed ? "<span>Reviewed " + esc(reviewed) + "</span>" : "") +
+        "</div></div>";
+    }).join("");
+  }
+
+  fetchItems().then(function (items) {
+    ALL = items;
+    populateFilters(items);
+    render();
+  }).catch(function (e) {
+    $results.innerHTML = '<p class="cq-err">Could not load the CIVPAY Q&amp;A list (' + esc(e.message) +
+      '). Confirm the list "' + esc(LIST_TITLE) + '" exists on this site and you have read access.</p>';
+    $count.textContent = "";
+  });
+
+  var t;
+  $q.addEventListener("input", function () { clearTimeout(t); t = setTimeout(render, 120); });
+  $sys.addEventListener("change", render);
+  $role.addEventListener("change", render);
+})();
+</script>

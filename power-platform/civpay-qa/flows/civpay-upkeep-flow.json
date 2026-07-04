@@ -1,0 +1,97 @@
+{
+  "name": "CIVPAY Q&A - Stale Review Guard",
+  "description": "Monthly upkeep flow for the CIVPAY Q&A List. Flags any answer whose citation has not been re-verified within the review window (default 180 days) and emails a digest to the list owner. Keeps the citation-grounded set from silently going stale after DCPS/FMR/CFR updates. Read-only against the source of record — it reminds, it does not edit answers. Modeled on Work/BSO18_PowerPlatform/Power_Automate_Flow.json.",
+  "connectorDependencies": ["SharePoint", "Office 365 Outlook"],
+  "parameters": {
+    "SiteUrl": { "type": "String", "description": "SharePoint site hosting the CIVPAY Q&A list" },
+    "ListTitle": { "type": "String", "default": "CIVPAY Q&A" },
+    "ReviewWindowDays": { "type": "Int", "default": 180 },
+    "OwnerEmail": { "type": "String", "description": "Who receives the stale-review digest" }
+  },
+  "trigger": {
+    "type": "Recurrence",
+    "recurrence": {
+      "frequency": "Month",
+      "interval": 1,
+      "schedule": { "monthDays": ["1"], "hours": ["7"], "minutes": ["0"] }
+    }
+  },
+  "actions": [
+    {
+      "name": "Initialize_Variables",
+      "type": "InitializeVariable",
+      "inputs": [
+        { "name": "varCutoff", "type": "String", "value": "@{addDays(utcNow(), mul(parameters('ReviewWindowDays'), -1))}" },
+        { "name": "varStaleRows", "type": "Array", "value": [] }
+      ]
+    },
+    {
+      "name": "Get_Stale_Items",
+      "type": "SharePoint.GetItems",
+      "comment": "Only rows older than the review window. Server-side OData filter keeps the pull small.",
+      "inputs": {
+        "site": "@parameters('SiteUrl')",
+        "list": "@parameters('ListTitle')",
+        "filterQuery": "LastReviewed lt '@{variables('varCutoff')}'",
+        "orderBy": "LastReviewed asc",
+        "top": 500,
+        "select": "Title,Citation,System,LastReviewed"
+      }
+    },
+    {
+      "name": "Collect_Stale",
+      "type": "Foreach",
+      "foreach": "@outputs('Get_Stale_Items')?['body/value']",
+      "actions": [
+        {
+          "name": "Append_Row",
+          "type": "AppendToArrayVariable",
+          "inputs": {
+            "name": "varStaleRows",
+            "value": {
+              "Question": "@item()?['Title']",
+              "Citation": "@item()?['Citation']",
+              "System": "@item()?['System']",
+              "LastReviewed": "@{formatDateTime(item()?['LastReviewed'], 'yyyy-MM-dd')}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Condition_Any_Stale",
+      "type": "If",
+      "expression": "@greater(length(variables('varStaleRows')), 0)",
+      "ifTrue": {
+        "actions": [
+          {
+            "name": "Build_Digest_Html",
+            "type": "Compose",
+            "inputs": "@concat('<p>', length(variables('varStaleRows')), ' CIVPAY Q&A answer(s) are past the ', parameters('ReviewWindowDays'), '-day review window and should be re-verified against the current source of record.</p><table border=1 cellpadding=6 cellspacing=0><tr><th>Question</th><th>Citation</th><th>System</th><th>Last Reviewed</th></tr>', join(select(variables('varStaleRows'), concat('<tr><td>', item()?['Question'], '</td><td>', item()?['Citation'], '</td><td>', item()?['System'], '</td><td>', item()?['LastReviewed'], '</td></tr>')), ''), '</table><p>Re-verify each against DCPS R26-1 / DoD FMR Vol 8 / 5 CFR / OPM GPPA, then update the LastReviewed date on the row.</p>')"
+          },
+          {
+            "name": "Send_Digest_Email",
+            "type": "Office365Outlook.SendEmail",
+            "inputs": {
+              "to": "@parameters('OwnerEmail')",
+              "subject": "@concat('CIVPAY Q&A — ', length(variables('varStaleRows')), ' answer(s) need review')",
+              "body": "@outputs('Build_Digest_Html')",
+              "importance": "Normal",
+              "isHtml": true
+            }
+          }
+        ]
+      },
+      "ifFalse": {
+        "actions": [
+          { "name": "Terminate_NoOp", "type": "Terminate", "inputs": { "runStatus": "Succeeded" } }
+        ]
+      }
+    }
+  ],
+  "notes": [
+    "LastReviewed is set at import from data/civpay_qa.csv; the flow only READS it.",
+    "To change cadence edit trigger.recurrence; to change the window edit ReviewWindowDays.",
+    "This flow does not touch Answer/Citation — content changes go through the Tower authoring generator, re-export, and re-import (see IMPLEMENTATION_GUIDE.md)."
+  ]
+}
