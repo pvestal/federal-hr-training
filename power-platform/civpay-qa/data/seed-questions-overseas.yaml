@@ -1,0 +1,46 @@
+# CIVPAY Q&A — SOP#2 overseas / special-category seed questions (Top-25).
+# tags: dcps (DCPS UM) | dssr (Dept of State Standardized Regs) | dodi (DoDI 1400.25)
+#       | fmr_vol8 (DoD FMR Vol 8) | cfr (5 CFR / 5 USC)
+# Authority precedence: OPM/5 CFR (Tier 1) > DoD FMR/DoDI + DSSR (Tier 2) >
+# DCPS/DCPDS systems (Tier 3) > Navy/DON procedure (Tier 4). Cite the highest
+# governing authority for the rule; systems/component refs are execution only.
+
+- area: quarters-allowances
+  questions:
+    - { q: "Who is eligible for Living Quarters Allowance (LQA) overseas?", tags: [dssr, dodi, dcps], roles: [HR Specialist, Payroll] }
+    - { q: "What does LQA cover and how is the maximum set?", tags: [dssr, dcps], roles: [Payroll] }
+    - { q: "What is TQSA and how long can it be paid?", tags: [dssr, dcps], roles: [HR Specialist, Payroll] }
+    - { q: "What is the Extraordinary Quarters Allowance (EQA)?", tags: [dssr], roles: [HR Specialist, Payroll] }
+    - { q: "How is currency fluctuation handled in LQA and allowance payments?", tags: [dcps, dssr], roles: [Payroll] }
+    - { q: "How is LQA reconciled and what happens if it was overpaid?", tags: [dcps, dssr, fmr_vol8], roles: [Payroll] }
+
+- area: cost-and-condition-allowances
+  questions:
+    - { q: "What is the Post Allowance (overseas COLA) and what is it based on?", tags: [dssr, dcps], roles: [Payroll, Employee] }
+    - { q: "What is Post (Hardship) Differential and is it taxable?", tags: [dssr], roles: [Payroll, Employee] }
+    - { q: "What is Danger Pay?", tags: [dssr], roles: [Payroll, Employee] }
+    - { q: "How do post differential and danger pay combine, and are there caps?", tags: [dssr, cfr], roles: [Payroll] }
+
+- area: relocation-and-family-allowances
+  questions:
+    - { q: "What is the Education Allowance for dependents overseas?", tags: [dssr], roles: [HR Specialist, Employee] }
+    - { q: "What is the Separate Maintenance Allowance (SMA)?", tags: [dssr], roles: [HR Specialist, Employee] }
+    - { q: "What is the Foreign Transfer Allowance (FTA)?", tags: [dssr], roles: [HR Specialist, Employee] }
+    - { q: "What is the Consumables Allowance?", tags: [dssr], roles: [HR Specialist, Employee] }
+    - { q: "What is an Advance of Pay for an overseas assignment?", tags: [dssr], roles: [Payroll, Employee] }
+
+- area: leave-and-travel
+  questions:
+    - { q: "Who is eligible for Home Leave from an overseas assignment?", tags: [cfr], roles: [HR Specialist, Employee] }
+    - { q: "What is Rest and Recuperation (R&R) travel?", tags: [dodi, dssr], roles: [HR Specialist, Employee] }
+    - { q: "How are overseas evacuation payments handled?", tags: [dssr], roles: [Payroll, Employee] }
+
+- area: appointment-and-pay-mechanics
+  questions:
+    - { q: "How are overseas allowances recorded and paid in DCPS?", tags: [dcps], roles: [Payroll] }
+    - { q: "How is a foreign national (local national) employee's gross pay handled?", tags: [dcps, dodi], roles: [HR Specialist, Payroll] }
+    - { q: "What governs special-category and overseas pay administration?", tags: [fmr_vol8, dodi], roles: [HR Specialist, Payroll] }
+    - { q: "Which overseas allowances are taxable and which are not?", tags: [dssr], roles: [Payroll, Employee] }
+    - { q: "Do within-grade increases and GS pay-setting work differently overseas?", tags: [cfr], roles: [HR Specialist, Payroll] }
+    - { q: "Can recruitment or retention incentives be used for hard-to-fill overseas positions?", tags: [cfr], roles: [HR Specialist] }
+    - { q: "How does overseas allowance/entitlement data get from HR to DCPS?", tags: [dcps], roles: [HR Specialist, Payroll] }
