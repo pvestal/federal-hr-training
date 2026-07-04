@@ -34,9 +34,18 @@ Mark **Citation** and **LastReviewed** as required — the citation-grounded rul
 enforced at the column level so no answer can ship without a source and a review date.
 
 ### 2. Import the answers
-List → **Integrate → Import from Excel**, or open `data/civpay_qa.csv` in Excel and
+List → **Integrate → Import from Excel**, or open the CSV in Excel and
 **Quick Edit → paste**. Map columns Question→Title, Answer, Citation, System, Role,
-Keywords, LastReviewed. Ignore the `_score` column (authoring artifact, not a List field).
+Keywords, LastReviewed.
+
+Two content files import into the **same** List:
+- `data/civpay_qa.csv` — SOP#1, domestic personnel-action-to-pay (15 answers).
+- `data/civpay_qa_overseas.csv` — SOP#2, overseas / special-category: LQA, TQSA,
+  post allowance (COLA), post differential, danger pay, foreign-national pay,
+  special-category authority, taxability, reconciliation (12 answers).
+
+The `System` filter (DCPS, DCPDS, FMR Vol 8, 5 CFR, OPM GPPA, DSSR, DoDI 1400.25)
+and free-text search separate domestic vs overseas — no separate list or web part.
 
 ### 3. Add the search web part
 Edit a SharePoint page → add an **Embed** web part (modern pages) or a **Script
